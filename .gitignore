@@ -9,7 +9,7 @@ env/
 ENV/
 
 # Database
-db.sqlite3
+# db.sqlite3
 
 # IDEs
 .idea/
