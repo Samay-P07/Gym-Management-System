@@ -33,6 +33,8 @@ urlpatterns = [
     path('registration',registration, name="registration"),
     path('user_login/',user_login, name="user_login"),
     path('apply-booking/<int:pid>/', apply_booking, name="apply_booking"),
+    path('payment_checkout/<int:booking_id>/', payment_checkout, name="payment_checkout"),
+    path('payment_success/', payment_success, name="payment_success"),
     path('booking_detail/<int:pid>/', booking_detail, name="booking_detail"),
     path('view_messages/', view_messages, name="view_messages"),
 

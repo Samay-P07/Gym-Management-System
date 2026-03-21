@@ -408,7 +408,27 @@ def apply_booking(request, pid):
     data = Package.objects.get(id=pid)
     register = Signup.objects.get(user=request.user)
     booking = Booking.objects.create(package=data, register=register, bookingnumber=random_with_N_digits(10))
-    messages.success(request, 'Booking Applied')
+    return redirect('payment_checkout', booking_id=booking.id)
+
+@login_required(login_url='/user_login/')
+def payment_checkout(request, booking_id):
+    booking = Booking.objects.get(id=booking_id)
+    return render(request, 'payment_checkout.html', {'booking': booking})
+
+@login_required(login_url='/user_login/')
+def payment_success(request):
+    if request.method == "POST":
+        booking_id = request.POST.get('booking_id')
+        payment_id = request.POST.get('razorpay_payment_id')
+        
+        booking = Booking.objects.get(id=booking_id)
+        booking.status = 3
+        booking.save()
+        
+        Paymenthistory.objects.create(user=booking.register, booking=booking, price=booking.package.price, status=3)
+        
+        messages.success(request, f"Payment Successful! Txn ID: {payment_id}")
+        return redirect('booking_history')
     return redirect('/')
 
 @login_required(login_url='/admin_login/')
