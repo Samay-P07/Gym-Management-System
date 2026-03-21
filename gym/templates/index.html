@@ -1,0 +1,192 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="Patel Samay">
+    <title>FITCORE | Gym Management System</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='50' fill='%23f43f5e'/><text x='50' y='68' fill='white' font-family='sans-serif' font-size='50' font-weight='800' text-anchor='middle'>FC</text></svg>">
+
+    <!-- Use FontAwesome Standard CSS Link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Local Bootstrap -->
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+    <!-- Custom Clean & Unique Theme Design -->
+    <link rel="stylesheet" href="{% static 'assets/css/custom.css' %}">
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-custom">
+    <div class="container">
+        <a class="navbar-brand" href="/">FIT<span style="color:#ffffff;">CORE</span></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+            <span class="fa fa-bars" style="color: white;"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="#programs">Programs</a></li>
+                <li class="nav-item"><a class="nav-link" href="#pricing">Pricing</a></li>
+                <li class="nav-item"><a class="nav-link" href="#admin">Admin</a></li>
+                <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                {% if request.user.is_authenticated %}
+                <li class="nav-item"><a class="nav-link" href="/booking_history/" style="color:#f43f5e!important;">Booking History</a></li>
+                {% endif %}
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                {% if request.user.is_authenticated %}
+                <li class="nav-item"><a class="nav-link" href="/user_profile/"><i class="fa fa-user"></i> Profile</a></li>
+                <li class="nav-item"><a class="nav-link" href="/user_logout/"><i class="fa fa-sign-out-alt"></i> Logout</a></li>
+                {% else %}
+                <li class="nav-item"><a class="btn-primary-custom px-4 py-2" style="font-size:14px; padding: 10px 25px!important;" href="/user_login/">User Login</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero Section -->
+<section id="home" class="hero-section">
+    <div class="container">
+        <h1 class="hero-title">ELEVATE YOUR FITNESS</h1>
+        <p class="hero-subtitle">Premium gym facilities, expert guidance, and personalized plans by Patel Samay.</p>
+        <a href="{% url 'registration' %}" class="btn-primary-custom text-decoration-none">Become a Member</a>
+    </div>
+</section>
+
+<!-- Programs Section -->
+<section id="programs" class="section-padding">
+    <div class="container">
+        <h2 class="section-title">Our <span>Programs</span></h2>
+        <div class="row">
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="feature-card">
+                    <i class="fa fa-dumbbell feature-icon"></i>
+                    <h4>Strength Training</h4>
+                    <p>Build muscle and increase raw power with our fully equipped free-weight zones and guided programs.</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="feature-card">
+                    <i class="fa fa-heartbeat feature-icon"></i>
+                    <h4>Cardio Fitness</h4>
+                    <p>Enhance your endurance using state-of-the-art treadmills, ellipticals, and cycling equipment.</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="feature-card">
+                    <i class="fa fa-yin-yang feature-icon"></i>
+                    <h4>Mind & Body</h4>
+                    <p>Relieve stress and improve flexibility with our dedicated yoga and meditation sessions.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Pricing Section -->
+<section id="pricing" class="section-padding" style="background-color:#1e293b;">
+    <div class="container">
+        <h2 class="section-title">Select Your <span>Plan</span></h2>
+        <div class="row">
+            {% for i in package %}
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="pricing-card {% if forloop.counter == 2 %}popular-plan{% endif %}" style="height: 100%; display: flex; flex-direction: column;">
+                    {% if forloop.counter == 2 %}
+                    <div class="popular-badge">Most Popular</div>
+                    {% endif %}
+                    <div class="pricing-header">
+                        <h3>{{i.titlename}}</h3>
+                        <div class="pricing-price"><span class="currency">₹</span>{{i.price}}</div>
+                        <span class="badge p-2 duration-badge">{{i.packageduration}}</span>
+                    </div>
+                    <div class="pricing-body text-left" style="flex: 1; display: flex; flex-direction: column;">
+                        <p style="color:#cbd5e1; line-height:1.8; font-size:16px; flex-grow: 1;">{{i.description|safe}}</p>
+                        <a href="/apply-booking/{{i.id}}/" class="btn-primary-custom d-block text-center text-decoration-none mt-4" style="margin-top: auto !important;">Get Started</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Admin Login -->
+<section id="admin" class="section-padding">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 mb-4">
+                <h2 class="section-title text-left">Admin <span>Portal</span></h2>
+                <p style="color:#94a3b8; font-size:18px;">Exclusive access for gym administrators to manage bookings, track memberships, and update system configurations securely.</p>
+            </div>
+            <div class="col-lg-6">
+                <!-- Exact required names and method for views.py -->
+                <form class="custom-form" method="post" action="" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <h4 class="mb-4 text-white">Login Here</h4>
+                    <input type="text" name="uname" class="custom-input" placeholder="Admin Username" required>
+                    <input type="password" name="pwd" class="custom-input" placeholder="Admin Password" required>
+                    <button type="submit" class="btn-primary-custom w-100 mt-2">Access Dashboard</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Form -->
+<section id="contact" class="section-padding" style="background-color:#1e293b;">
+    <div class="container">
+        <h2 class="section-title">Get In <span>Touch</span></h2>
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <!-- Exact required names, id, and method for views.py -->
+                <form id="contact" class="custom-form" action="" method="post">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-6">
+                            <input name="name" type="text" class="custom-input" placeholder="Your Name" required>
+                        </div>
+                        <div class="col-md-6">
+                            <input name="email" type="email" class="custom-input" placeholder="Your Email" required>
+                        </div>
+                        <div class="col-12">
+                            <input name="subject" type="text" class="custom-input" placeholder="Subject">
+                        </div>
+                        <div class="col-12">
+                            <textarea name="message" rows="5" class="custom-input" placeholder="Your Message" required></textarea>
+                        </div>
+                        <div class="col-12 text-center">
+                            <button type="submit" class="btn-primary-custom px-5 mt-3 border-0">Send Message</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <p>Copyright &copy; <script>document.write(new Date().getFullYear());</script> Gym Management System by Patel Samay | patelsamay071@gmail.com</p>
+                    <div style="margin-top: 15px; display: flex; justify-content: center; align-items: center; gap: 20px;">
+                        <a href="https://github.com/Samay-P07" target="_blank" title="GitHub" style="color:#cbd5e1; text-decoration:none;"><i class="fab fa-github fa-2x" style="transition:0.3s;" onmouseover="this.style.color='#f43f5e'" onmouseout="this.style.color='#cbd5e1'"></i></a>
+                        <a href="https://linkedin.com/in/samaypatel7" target="_blank" title="LinkedIn" style="color:#cbd5e1; text-decoration:none;"><i class="fab fa-linkedin fa-2x" style="transition:0.3s;" onmouseover="this.style.color='#f43f5e'" onmouseout="this.style.color='#cbd5e1'"></i></a>
+                    </div>
+    </div>
+</footer>
+
+<script src="{% static 'assets/js/jquery-2.1.0.min.js' %}"></script>
+<script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+
+<!-- Keep existing messages logic -->
+{% for i in messages %}
+<script>
+    alert('{{i}}');
+</script>
+{% endfor %}
+
+</body>
+</html>

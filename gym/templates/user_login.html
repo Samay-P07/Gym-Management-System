@@ -1,0 +1,81 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="Patel Samay">
+    <title>FITCORE | User Login - Gym Management</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='50' fill='%23f43f5e'/><text x='50' y='68' fill='white' font-family='sans-serif' font-size='50' font-weight='800' text-anchor='middle'>FC</text></svg>">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/custom.css' %}">
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-custom">
+    <div class="container">
+        <a class="navbar-brand" href="/">FIT<span style="color:#ffffff;">CORE</span></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+            <span class="fa fa-bars" style="color: white;"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="inner-page-wrapper" style="min-height: 80vh; display: flex; align-items: center;">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-5 col-md-8">
+                <form class="custom-form" method="post">
+                    {% csrf_token %}
+                    <h3 class="mb-4 text-center text-white" style="font-weight: 800; text-transform:uppercase;">Member Login</h3>
+                    <input type="email" name="email" class="custom-input" placeholder="Enter Email Address" required>
+                    <input type="password" name="password" class="custom-input" placeholder="Enter Password" required>
+                    <button type="submit" class="btn-primary-custom w-100 mt-3 border-0">Login</button>
+                    <div class="text-center mt-4">
+                        <a href="{% url 'registration' %}" style="color: #cbd5e1; text-decoration: none;">Don't have an account? <span style="color:#f43f5e; font-weight:600;">Register Here</span></a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <p>Copyright &copy; <script>document.write(new Date().getFullYear());</script> Gym Management System by Patel Samay | patelsamay071@gmail.com</p>
+                    <div style="margin-top: 15px; display: flex; justify-content: center; align-items: center; gap: 20px;">
+                        <a href="https://github.com/Samay-P07" target="_blank" title="GitHub" style="color:#cbd5e1; text-decoration:none;"><i class="fab fa-github fa-2x" style="transition:0.3s;" onmouseover="this.style.color='#f43f5e'" onmouseout="this.style.color='#cbd5e1'"></i></a>
+                        <a href="https://linkedin.com/in/samaypatel7" target="_blank" title="LinkedIn" style="color:#cbd5e1; text-decoration:none;"><i class="fab fa-linkedin fa-2x" style="transition:0.3s;" onmouseover="this.style.color='#f43f5e'" onmouseout="this.style.color='#cbd5e1'"></i></a>
+                    </div>
+    </div>
+</footer>
+
+<script src="{% static 'assets/js/jquery-2.1.0.min.js' %}"></script>
+<script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+{% for i in messages %}
+<script>
+    alert('{{i}}');
+</script>
+{% endfor %}
+{% if error == "no" %}
+<script>
+    alert('Logged In Successfully');
+    window.location=('{% url "admin_home" %}');
+</script>
+{% endif %}
+{% if error == "yes" %}
+<script>
+    alert('Invalid Credentials, Please try again');
+</script>
+{% endif %}
+</body>
+</html>

@@ -1,0 +1,149 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="Patel Samay">
+    <title>FITCORE | Booking Details - Gym Management</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='50' fill='%23f43f5e'/><text x='50' y='68' fill='white' font-family='sans-serif' font-size='50' font-weight='800' text-anchor='middle'>FC</text></svg>">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/custom.css' %}">
+    <style>
+        .table th { color: #f43f5e !important; border-top:none!important; text-transform: uppercase; font-size:14px; }
+        .table td { color: #cbd5e1 !important; border-top:none!important; border-bottom:1px solid rgba(255,255,255,0.05); }
+        .table-bordered { border: none !important; }
+        .password { display: none; }
+        .text { display: inline-block; }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-custom">
+    <div class="container">
+        <a class="navbar-brand" href="/">FIT<span style="color:#ffffff;">CORE</span></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+            <span class="fa fa-bars" style="color: white;"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="/booking_history/" style="color:#ffffff!important;">Booking History</a></li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item"><a class="nav-link" href="/user_profile/"><i class="fa fa-user"></i> Profile</a></li>
+                <li class="nav-item"><a class="nav-link" href="/user_change_password/"><i class="fa fa-unlock-alt"></i> Password</a></li>
+                <li class="nav-item"><a class="nav-link" href="/user_logout/"><i class="fa fa-sign-out-alt"></i> Logout</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="inner-page-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="custom-form p-5">
+                    <h3 class="mb-4 text-center text-white" style="font-weight: 800; text-transform:uppercase;">Booking Specification</h3>
+                    
+                    <div class="table-responsive mb-5">
+                        <table class="table">
+                            <tr>
+                                <th>Booking Date:</th>
+                                <td>{{data.package.creationdate}}</td>
+                                <th>Name:</th>
+                                <td>{{data.register.user.first_name}} {{data.register.user.last_name}}</td>
+                            </tr>
+                            <tr>
+                                <th>Email:</th>
+                                <td>
+                                    <span id="email-1" class="password">{{data.register.user.username}}</span>
+                                    <button type="button" class="btn btn-sm btn-outline-light" id="email-btn-1" style="background:transparent; border:none; color:#f43f5e;" onclick="togglePassword('email-1', this.id)"><i class="fa fa-eye"></i></button>
+                                </td>
+                                <th>Category:</th>
+                                <td>{{data.package.category.categoryname}}</td>
+                            </tr>
+                            <tr>
+                                <th>Package Name:</th>
+                                <td>{{data.package.packagename}}</td>
+                                <th>Title:</th>
+                                <td>{{data.package.titlename}}</td>
+                            </tr>
+                            <tr>
+                                <th>Duration:</th>
+                                <td>{{data.package.packageduration}}</td>
+                                <th>Price:</th>
+                                <td>${{data.package.price}}</td>
+                            </tr>
+                            <tr>
+                                <th>Description:</th>
+                                <td colspan="3">{{data.package.description|safe}}</td>
+                            </tr>
+                            <tr>
+                                <th>Payment Type:</th>
+                                <td colspan="3"><span class="badge" style="background-color:#f43f5e; font-size:14px; padding:8px 12px; color:white;">{{data.get_status_display}}</span></td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <h4 class="mb-3 text-center text-white" style="font-weight: 800; text-transform:uppercase;">Payment History</h4>
+                    <div class="table-responsive">
+                        <table class="table text-center table-hover">
+                            <thead style="background-color: rgba(255,255,255,0.1);">
+                            <tr>
+                                <th>Payment Type</th>
+                                <th>Amount Paid</th>
+                                <th>Payment Date</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for i in payment %}
+                            <tr>
+                                <td>{{i.get_status_display}}</td>
+                                <td>${{i.price}}</td>
+                                <td>{{i.creationdate}}</td>
+                            </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <div class="container">
+        <p>Copyright &copy; <script>document.write(new Date().getFullYear());</script> Gym Management System by Patel Samay | patelsamay071@gmail.com</p>
+                    <div style="margin-top: 15px; display: flex; justify-content: center; align-items: center; gap: 20px;">
+                        <a href="https://github.com/Samay-P07" target="_blank" title="GitHub" style="color:#cbd5e1; text-decoration:none;"><i class="fab fa-github fa-2x" style="transition:0.3s;" onmouseover="this.style.color='#f43f5e'" onmouseout="this.style.color='#cbd5e1'"></i></a>
+                        <a href="https://linkedin.com/in/samaypatel7" target="_blank" title="LinkedIn" style="color:#cbd5e1; text-decoration:none;"><i class="fab fa-linkedin fa-2x" style="transition:0.3s;" onmouseover="this.style.color='#f43f5e'" onmouseout="this.style.color='#cbd5e1'"></i></a>
+                    </div>
+    </div>
+</footer>
+
+<script src="{% static 'assets/js/jquery-2.1.0.min.js' %}"></script>
+<script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+<script>
+    function togglePassword(element_id, btnId){
+      var elementData = document.getElementById(element_id);
+      var elementBtn = document.getElementById(btnId); // Use btnId to select the specific button
+      if(elementData.classList.contains("password")){
+        elementData.classList.remove("password");
+        elementData.classList.add("text");
+        elementBtn.children[0].classList.add("fa-eye-slash");
+        elementBtn.children[0].classList.remove("fa-eye");
+      }
+      else{
+        elementData.classList.remove("text");
+        elementData.classList.add("password");
+        elementBtn.children[0].classList.remove("fa-eye-slash");
+        elementBtn.children[0].classList.add("fa-eye");
+      }
+    }
+</script>
+</body>
+</html>
