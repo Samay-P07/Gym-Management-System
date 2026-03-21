@@ -105,7 +105,7 @@ def user_profile(request):
         Signup.objects.filter(user=request.user).update(mobile=mobile, address=address)
         messages.success(request, "Updation Successful")
         return redirect('user_profile')
-    data = Signup.objects.get(user=request.user)
+    data = Signup.objects.get_or_create(user=request.user, defaults={'mobile': '0000000000', 'address': 'Admin / System User'})[0]
     return render(request, "user_profile.html", locals())
 
 def user_change_password(request):
@@ -260,7 +260,7 @@ def managePackage(request):
 
 @login_required(login_url='/user_login/')
 def booking_history(request):
-    data = Signup.objects.get(user=request.user)
+    data = Signup.objects.get_or_create(user=request.user, defaults={'mobile': '0000000000', 'address': 'Admin / System User'})[0]
     data = Booking.objects.filter(register=data)
     return render(request, "booking_history.html", locals())
 
@@ -406,7 +406,7 @@ def random_with_N_digits(n):
 @login_required(login_url='/user_login/')
 def apply_booking(request, pid):
     data = Package.objects.get(id=pid)
-    register = Signup.objects.get(user=request.user)
+    register = Signup.objects.get_or_create(user=request.user, defaults={'mobile': '0000000000', 'address': 'Admin / System User'})[0]
     booking = Booking.objects.create(package=data, register=register, bookingnumber=random_with_N_digits(10))
     return redirect('payment_checkout', booking_id=booking.id)
 
