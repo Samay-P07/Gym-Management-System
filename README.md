@@ -229,7 +229,7 @@ Gym-Management-System/
 
 - **GitHub:** [@Samay-P07](https://github.com/Samay-P07)  
 - **LinkedIn:** [Patel Samay](https://linkedin.com/in/samaypatel7)  
-- **Email:** [samaypatel071@gmail.com](mailto:samaypatel071@gmail.com)  
+- **Location:** Ahmedabad, Gujarat, India  
 
 ---
 

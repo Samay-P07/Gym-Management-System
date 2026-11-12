@@ -36,10 +36,10 @@ class Command(BaseCommand):
         Signup.objects.get_or_create(
             user=admin_user,
             defaults={
-                "mobile": "+91 98765 43210",
+                "mobile": "-",
                 "city": "Ahmedabad",
                 "state": "Gujarat",
-                "address": "FITCORE HQ, Ring Road, Ahmedabad",
+                "address": "Ahmedabad, Gujarat",
             }
         )
 
@@ -64,10 +64,10 @@ class Command(BaseCommand):
         member_signup, _ = Signup.objects.get_or_create(
             user=member_user,
             defaults={
-                "mobile": "+91 91234 56789",
+                "mobile": "-",
                 "city": "Ahmedabad",
                 "state": "Gujarat",
-                "address": "42 Sunset Boulevard, Bodakdev",
+                "address": "Ahmedabad, Gujarat",
             }
         )
 
@@ -260,7 +260,7 @@ class Command(BaseCommand):
             defaults={
                 "name": "Rohit Mehta",
                 "subject": "Corporate Gym Membership Inquiry",
-                "message": "Hi Team, we have a 45-person tech firm in Bodakdev and would like to inquire about group annual fitness packages for our employees.",
+                "message": "Hi Team, we have a 45-person tech firm in Ahmedabad and would like to inquire about group annual fitness packages for our employees.",
             }
         )
 

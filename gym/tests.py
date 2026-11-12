@@ -28,10 +28,10 @@ class GymManagementSystemTests(TestCase):
         )
         self.member_signup = Signup.objects.create(
             user=self.member_user,
-            mobile='9876543210',
+            mobile='0000000000',
             city='Ahmedabad',
             state='Gujarat',
-            address='123 Fitness St'
+            address='Ahmedabad, Gujarat'
         )
 
         # Create Category & Package
@@ -101,14 +101,14 @@ class GymManagementSystemTests(TestCase):
             'secondname': 'Smith',
             'email': 'jane.smith@test.com',
             'password': 'securepassword123',
-            'mobile': '9123456780',
-            'address': '456 Gym Ave',
+            'mobile': '0000000000',
+            'address': 'Ahmedabad, Gujarat',
             'city': 'Ahmedabad',
             'state': 'Gujarat'
         })
         self.assertEqual(response.status_code, 302)
         self.assertTrue(User.objects.filter(email='jane.smith@test.com').exists())
-        self.assertTrue(Signup.objects.filter(mobile='9123456780').exists())
+        self.assertTrue(Signup.objects.filter(mobile='0000000000').exists())
 
     def test_user_authentication(self):
         """Test member login and redirection."""
