@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Membership Plans & Pricing | FITCORE Hub{% endblock %}
+
+{% block content %}
+<!-- Page Banner -->
+<div class="page-hero-banner">
+    <div class="container">
+        <span class="section-tag">INVESTMENT IN YOUR PERFORMANCE</span>
+        <h1 class="text-white font-weight-bold" style="font-size: 46px;">MEMBERSHIP TIERS & PRICING</h1>
+        <p class="text-muted" style="max-width: 650px; margin: 0 auto; font-size: 17px;">
+            Honest, all-inclusive fitness passes. Zero cancellation penalties, zero hidden equipment surcharge fees.
+        </p>
+    </div>
+</div>
+
+<section class="section-padding">
+    <div class="container">
+        <!-- Plans Grid -->
+        <div class="row">
+            {% for p in packages %}
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="pricing-card {% if forloop.counter == 2 %}featured{% endif %}">
+                    {% if forloop.counter == 2 %}
+                        <div class="pricing-badge">Most Popular</div>
+                    {% endif %}
+                    <div class="pricing-plan-name">{{ p.titlename }}</div>
+                    <span class="pricing-category-pill">{{ p.category.categoryname|default:"General Access" }}</span>
+
+                    <div class="pricing-price-wrap">
+                        <span class="pricing-currency">₹</span>
+                        <span class="pricing-amount">{{ p.formatted_price }}</span>
+                    </div>
+                    <div class="pricing-duration">Validity Period: <strong>{{ p.packageduration }}</strong></div>
+
+                    <div class="pricing-divider"></div>
+
+                    <p class="text-muted" style="font-size:14px; min-height: 48px;">
+                        {{ p.description|default:"All-inclusive gym floor access with locker and biometric scan." }}
+                    </p>
+
+                    <ul class="pricing-features-list">
+                        <li><i class="fa fa-circle-check"></i> 14,000 sq.ft facility & Olympic gear access</li>
+                        <li><i class="fa fa-circle-check"></i> Keyless RFID locker & high-pressure shower</li>
+                        <li><i class="fa fa-circle-check"></i> InBody clinical body composition report</li>
+                        {% if "3" in p.packageduration or "6" in p.packageduration or "12" in p.packageduration or "Year" in p.packageduration %}
+                        <li><i class="fa fa-circle-check"></i> Infrared recovery sauna & cold plunge pools</li>
+                        <li><i class="fa fa-circle-check"></i> 2 Free Guest passes for training partners</li>
+                        {% endif %}
+                        {% if "12" in p.packageduration or "Year" in p.packageduration %}
+                        <li><i class="fa fa-circle-check"></i> 12 Complimentary 1-on-1 Personal Trainer sessions</li>
+                        <li><i class="fa fa-circle-check"></i> Dedicated VIP locker & luxury towel service</li>
+                        {% endif %}
+                    </ul>
+
+                    <div style="margin-top: auto;">
+                        <a href="{% url 'apply_booking' p.id %}" class="btn-primary-custom w-100">
+                            Apply For Tier <i class="fa fa-bolt"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12 text-center text-muted">
+                <p>No packages found in database. Run <code>python manage.py seed_gym_data</code> to initialize.</p>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Comparison Table -->
+        <div class="mt-5 pt-4">
+            <h3 class="text-white font-weight-bold text-center mb-4">Detailed Amenity Comparison</h3>
+            <div class="table-responsive">
+                <table class="table custom-table text-center">
+                    <thead>
+                        <tr>
+                            <th class="text-left">Feature / Amenity</th>
+                            <th>Starter (1 Mo)</th>
+                            <th>Hypertrophy (3 Mo)</th>
+                            <th>VIP Champion (12 Mo)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="text-left font-weight-bold">Olympic Lifting Floor & Dumbbells (up to 60kg)</td>
+                            <td><i class="fa fa-check text-success"></i></td>
+                            <td><i class="fa fa-check text-success"></i></td>
+                            <td><i class="fa fa-check text-success"></i></td>
+                        </tr>
+                        <tr>
+                            <td class="text-left font-weight-bold">RFID Personal Locker & Rain Showers</td>
+                            <td><i class="fa fa-check text-success"></i></td>
+                            <td><i class="fa fa-check text-success"></i></td>
+                            <td><i class="fa fa-check text-success"></i></td>
+                        </tr>
+                        <tr>
+                            <td class="text-left font-weight-bold">Group Fitness (HIIT, Yoga, CrossFit)</td>
+                            <td>Standard</td>
+                            <td>Priority</td>
+                            <td>Unlimited VIP</td>
+                        </tr>
+                        <tr>
+                            <td class="text-left font-weight-bold">Infrared Sauna & Cold Plunge Suite</td>
+                            <td><i class="fa fa-xmark text-muted"></i></td>
+                            <td><i class="fa fa-check text-success"></i></td>
+                            <td><i class="fa fa-check text-success"></i></td>
+                        </tr>
+                        <tr>
+                            <td class="text-left font-weight-bold">1-on-1 Certified Personal Training</td>
+                            <td><i class="fa fa-xmark text-muted"></i></td>
+                            <td>1 Session</td>
+                            <td>12 Sessions Included</td>
+                        </tr>
+                        <tr>
+                            <td class="text-left font-weight-bold">Digital Tax Invoice & Printable Receipt</td>
+                            <td><i class="fa fa-check text-success"></i></td>
+                            <td><i class="fa fa-check text-success"></i></td>
+                            <td><i class="fa fa-check text-success"></i></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

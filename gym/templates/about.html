@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}About Us | FITCORE Iron & Wellness Hub{% endblock %}
+
+{% block content %}
+<!-- Page Banner -->
+<div class="page-hero-banner">
+    <div class="container">
+        <span class="section-tag">OUR MISSION & PHILOSOPHY</span>
+        <h1 class="text-white font-weight-bold" style="font-size: 46px;">FORGING DISCIPLINE, BUILDING STRENGTH</h1>
+        <p class="text-muted" style="max-width: 650px; margin: 0 auto; font-size: 17px;">
+            FITCORE was founded with a singular conviction: genuine physical transformation doesn't come from gimmick diets or crowded rows of cheap plastic machines. It comes from barbell fundamentals, progressive tension, and recovery science.
+        </p>
+    </div>
+</div>
+
+<!-- Story Section -->
+<section class="section-padding">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 mb-4 mb-lg-0">
+                <span class="section-tag">THE FITCORE STORY</span>
+                <h2 class="section-title text-left">From A Garage Weight Rack To <span>Premier Athletic Arena</span></h2>
+                <p style="color: var(--text-muted); font-size: 16px; line-height: 1.8;">
+                    Founded by Patel Samay, FITCORE emerged to solve a fundamental frustration with modern fitness centers: lack of biomechanically sound equipment, overcrowded free-weight areas, and generic copy-paste workout routines.
+                </p>
+                <p style="color: var(--text-muted); font-size: 16px; line-height: 1.8;">
+                    We built a 14,000 sq.ft facility engineered specifically around athlete biomechanics. From calibrated steel Olympic plates to infrared recovery saunas and automated digital membership passes, every square foot is designed to help you execute your training without friction.
+                </p>
+                <div class="row mt-4">
+                    <div class="col-6">
+                        <div class="p-3 rounded" style="background: var(--bg-card); border-left: 3px solid var(--primary);">
+                            <h4 class="text-white mb-1" style="font-size: 20px;">Precision</h4>
+                            <p class="mb-0 text-muted" style="font-size: 13.5px;">Calibrated barbells and biomechanically tuned angles.</p>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="p-3 rounded" style="background: var(--bg-card); border-left: 3px solid var(--accent);">
+                            <h4 class="text-white mb-1" style="font-size: 20px;">Recovery</h4>
+                            <p class="mb-0 text-muted" style="font-size: 13.5px;">Cold immersion, infrared heat, and sports massage.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div style="position: relative; border-radius: 20px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 20px 50px rgba(0,0,0,0.6);">
+                    <img src="{% static 'assets/images/training-image-02.jpg' %}" alt="FITCORE Training" class="w-100" style="object-fit: cover;">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Values Pillars -->
+<section class="section-padding" style="background: var(--bg-surface);">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-tag">THE FOUR PILLARS</span>
+            <h2 class="section-title">What Sets <span>FITCORE Apart</span></h2>
+        </div>
+        <div class="row">
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="feature-card text-center">
+                    <div class="feature-icon-wrapper mx-auto"><i class="fa fa-award"></i></div>
+                    <h4>Olympic Caliber Gear</h4>
+                    <p>Eleiko competition bars, calibrated cast iron plates, and heavy-gauge Rogue power cages.</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="feature-card text-center">
+                    <div class="feature-icon-wrapper mx-auto"><i class="fa fa-user-graduate"></i></div>
+                    <h4>Certified Coaches</h4>
+                    <p>No inexperienced floor reps. Every trainer holds CSCS, ACE, or USAW certifications.</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="feature-card text-center">
+                    <div class="feature-icon-wrapper mx-auto"><i class="fa fa-shield-heart"></i></div>
+                    <h4>Biometric Tracking</h4>
+                    <p>InBody 570 clinical composition analysis and digital membership dashboards.</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="feature-card text-center">
+                    <div class="feature-icon-wrapper mx-auto"><i class="fa fa-people-roof"></i></div>
+                    <h4>Zero-Ego Community</h4>
+                    <p>A focused, supportive environment where first-timers and national competitors lift side by side.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="section-padding text-center">
+    <div class="container">
+        <h2 class="section-title mb-3">Ready To Transform <span>Your Life?</span></h2>
+        <p class="text-muted mb-4" style="max-width: 550px; margin: 0 auto 25px auto;">
+            Experience the difference of a gym built by lifters, for lifters. Choose your membership tier today.
+        </p>
+        <a href="{% url 'pricing_view' %}" class="btn-primary-custom">
+            View Membership Plans <i class="fa fa-arrow-right"></i>
+        </a>
+    </div>
+</section>
+{% endblock %}

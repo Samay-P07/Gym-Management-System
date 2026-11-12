@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Class Timetable & Schedule | FITCORE Hub{% endblock %}
+
+{% block content %}
+<!-- Page Banner -->
+<div class="page-hero-banner">
+    <div class="container">
+        <span class="section-tag">WEEKLY WORKOUT CALENDAR</span>
+        <h1 class="text-white font-weight-bold" style="font-size: 46px;">GROUP FITNESS & WORKSHOP SCHEDULE</h1>
+        <p class="text-muted" style="max-width: 650px; margin: 0 auto; font-size: 17px;">
+            Filter through Monday to Saturday sessions. All active membership tiers include access to these classes.
+        </p>
+    </div>
+</div>
+
+<section class="section-padding">
+    <div class="container">
+        <!-- Day Filter Navigation -->
+        <div class="schedule-nav-pills">
+            {% for d in all_days %}
+            <a href="?day={{ d }}" class="schedule-pill {% if selected_day == d %}active{% endif %}">
+                <i class="fa fa-calendar-day mr-1"></i> {{ d }}
+            </a>
+            {% endfor %}
+        </div>
+
+        <!-- Class Cards List -->
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h3 class="text-white font-weight-bold mb-0">
+                        {{ selected_day }} Classes 
+                        <span class="badge badge-secondary ml-2" style="font-size: 13px; background: rgba(255,255,255,0.1);">{{ schedules|length }} Sessions</span>
+                    </h3>
+                    <span class="text-muted" style="font-size: 13.5px;"><i class="fa fa-circle-info text-info mr-1"></i> Pre-booking required for Olympic & Hyrox platforms</span>
+                </div>
+
+                {% for s in schedules %}
+                <div class="class-card">
+                    <div class="class-time-box">
+                        <div class="class-time">{{ s.start_time }}</div>
+                        <div class="class-duration"><i class="fa fa-clock"></i> Ends {{ s.end_time }}</div>
+                    </div>
+                    <div class="class-details">
+                        <div class="class-title">{{ s.classname }}</div>
+                        <div class="class-meta">
+                            <span><i class="fa fa-user text-danger"></i> Coach: <strong>{{ s.trainer }}</strong></span>
+                            <span><i class="fa fa-location-dot text-warning"></i> Arena: <strong>{{ s.room }}</strong></span>
+                            <span><i class="fa fa-users text-info"></i> Cap: <strong>{{ s.capacity }} lifters</strong></span>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center gap-3">
+                        <span class="class-intensity-badge">{{ s.intensity }}</span>
+                        {% if request.user.is_authenticated %}
+                            <a href="{% url 'member_dashboard' %}" class="btn-primary-custom" style="padding: 7px 18px; font-size:12px;">
+                                Reserve Spot <i class="fa fa-chevron-right"></i>
+                            </a>
+                        {% else %}
+                            <a href="{% url 'user_login' %}" class="btn-primary-custom" style="padding: 7px 18px; font-size:12px;">
+                                Login To Book <i class="fa fa-lock"></i>
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+                {% empty %}
+                <div class="p-5 text-center rounded" style="background: var(--bg-card); border: 1px dashed var(--border);">
+                    <i class="fa fa-calendar-xmark fa-3x mb-3 text-muted"></i>
+                    <h4 class="text-white font-weight-bold">Open Floor Training Day</h4>
+                    <p class="text-muted mb-0">No structured group classes on this day. The main Olympic gym floor, recovery saunas, and turf sprint track remain open for general member training (5:00 AM - 11:00 PM).</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

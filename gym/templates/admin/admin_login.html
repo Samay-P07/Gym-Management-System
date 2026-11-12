@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Administrator Portal Login | FITCORE{% endblock %}
+
+{% block content %}
+<div class="inner-page-wrapper" style="min-height: 85vh; display: flex; align-items: center;">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-5 col-md-8">
+                <div class="custom-form p-5">
+                    <div class="text-center mb-4">
+                        <div style="width: 60px; height: 60px; border-radius: 50%; background: rgba(244,63,94,0.15); display: inline-flex; align-items: center; justify-content: center; color: var(--primary); font-size: 26px; margin-bottom: 12px;">
+                            <i class="fa fa-shield-halved"></i>
+                        </div>
+                        <h2 class="text-white font-weight-bold mb-1" style="font-size: 24px;">Admin Portal</h2>
+                        <p class="text-muted" style="font-size: 13.5px;">Executive system access for gym operators</p>
+                    </div>
+
+                    <!-- Quick Demo Credentials Box for Reviewers -->
+                    <div class="p-3 mb-4 rounded" style="background: rgba(245,158,11,0.1); border: 1px dashed rgba(245,158,11,0.3); font-size: 13px;">
+                        <div class="text-warning font-weight-bold mb-1">
+                            <i class="fa fa-key mr-1"></i> Quick Demo Access (For Reviewers):
+                        </div>
+                        <div class="text-white">
+                            Username: <code>admin</code> &bull; Password: <code>admin123</code>
+                        </div>
+                    </div>
+
+                    <form method="post" action="{% url 'admin_login' %}">
+                        {% csrf_token %}
+                        <div class="form-group mb-3">
+                            <label class="text-white font-weight-bold" style="font-size: 13px;">Admin Username</label>
+                            <input type="text" name="uname" class="custom-input mb-1" placeholder="Enter username" value="admin" required>
+                        </div>
+
+                        <div class="form-group mb-4">
+                            <label class="text-white font-weight-bold" style="font-size: 13px;">Admin Password</label>
+                            <input type="password" name="pwd" class="custom-input mb-1" placeholder="Enter password" value="admin123" required>
+                        </div>
+
+                        <button type="submit" class="btn-primary-custom w-100 border-0">
+                            Access Executive Dashboard <i class="fa fa-arrow-right"></i>
+                        </button>
+                    </form>
+
+                    <div class="text-center mt-4 pt-3" style="border-top: 1px solid var(--border);">
+                        <a href="{% url 'user_login' %}" style="color: var(--text-muted); font-size: 13px; text-decoration: none;">
+                            Are you a gym member? <span style="color: var(--primary); font-weight: 600;">Member Login Here</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

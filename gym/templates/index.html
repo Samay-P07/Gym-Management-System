@@ -1,164 +1,431 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="author" content="Patel Samay">
-    <title>FITCORE | Gym Management System</title>
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='50' fill='%23f43f5e'/><text x='50' y='68' fill='white' font-family='sans-serif' font-size='50' font-weight='800' text-anchor='middle'>FC</text></svg>">
 
-    <!-- Use FontAwesome Standard CSS Link -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <!-- Local Bootstrap -->
-    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
-    <!-- Custom Clean & Unique Theme Design -->
-    <link rel="stylesheet" href="{% static 'assets/css/custom.css' %}">
-</head>
-<body>
+{% block title %}FITCORE | Elite Iron, Performance & Gym Management{% endblock %}
 
-<!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-custom">
-    <div class="container">
-        <a class="navbar-brand" href="/">FIT<span style="color:#ffffff;">CORE</span></a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
-            <span class="fa fa-bars" style="color: white;"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav mx-auto">
-                <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="#programs">Programs</a></li>
-                <li class="nav-item"><a class="nav-link" href="#pricing">Pricing</a></li>
-                <li class="nav-item"><a class="nav-link" href="#admin">Admin</a></li>
-                <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
-                {% if request.user.is_authenticated %}
-                <li class="nav-item"><a class="nav-link" href="/booking_history/" style="color:#f43f5e!important;">Booking History</a></li>
-                {% endif %}
-            </ul>
-            <ul class="navbar-nav ml-auto">
-                {% if request.user.is_authenticated %}
-                <li class="nav-item"><a class="nav-link" href="/user_profile/"><i class="fa fa-user"></i> Profile</a></li>
-                <li class="nav-item"><a class="nav-link" href="/user_logout/"><i class="fa fa-sign-out-alt"></i> Logout</a></li>
-                {% else %}
-                <li class="nav-item"><a class="btn-primary-custom px-4 py-2" style="font-size:14px; padding: 10px 25px!important;" href="/user_login/">User Login</a></li>
-                {% endif %}
-            </ul>
-        </div>
-    </div>
-</nav>
+{% block content %}
 
 <!-- Hero Section -->
 <section id="home" class="hero-section">
     <div class="container">
-        <h1 class="hero-title">ELEVATE YOUR FITNESS</h1>
-        <p class="hero-subtitle">Premium gym facilities, expert guidance, and personalized plans by Patel Samay.</p>
-        <a href="{% url 'registration' %}" class="btn-primary-custom text-decoration-none">Become a Member</a>
-    </div>
-</section>
+        <div class="hero-pill">
+            <span class="pulse-dot"></span> AHMEDABAD'S PREMIER ATHLETIC & WELLNESS ARENA
+        </div>
+        <h1 class="hero-title">
+            FORGE RAW POWER.<br>
+            <span>OWN YOUR PHYSIQUE.</span>
+        </h1>
+        <p class="hero-subtitle">
+            Engineered for dedicated lifters, athletes, and fitness enthusiasts. Experience certified biomechanics coaching, Eleiko Olympic gear, and recovery science.
+        </p>
+        <div class="hero-cta-group">
+            <a href="{% url 'pricing_view' %}" class="btn-primary-custom">
+                <i class="fa fa-bolt"></i> View Membership Tiers
+            </a>
+            <a href="#calculator" class="btn-secondary-custom">
+                <i class="fa fa-calculator"></i> Calculate BMI & Calories
+            </a>
+        </div>
 
-<!-- Programs Section -->
-<section id="programs" class="section-padding">
-    <div class="container">
-        <h2 class="section-title">Our <span>Programs</span></h2>
-        <div class="row">
-            <div class="col-lg-4 col-md-6 mb-4">
-                <div class="feature-card">
-                    <i class="fa fa-dumbbell feature-icon"></i>
-                    <h4>Strength Training</h4>
-                    <p>Build muscle and increase raw power with our fully equipped free-weight zones and guided programs.</p>
+        <!-- Live Metrics Bar -->
+        <div class="hero-stats-row">
+            <div class="row justify-content-center">
+                <div class="col-6 col-md-3">
+                    <div class="hero-stat-card">
+                        <div class="hero-stat-num">1,850<span>+</span></div>
+                        <div class="hero-stat-label">Active Members</div>
+                    </div>
                 </div>
-            </div>
-            <div class="col-lg-4 col-md-6 mb-4">
-                <div class="feature-card">
-                    <i class="fa fa-heartbeat feature-icon"></i>
-                    <h4>Cardio Fitness</h4>
-                    <p>Enhance your endurance using state-of-the-art treadmills, ellipticals, and cycling equipment.</p>
+                <div class="col-6 col-md-3">
+                    <div class="hero-stat-card">
+                        <div class="hero-stat-num">15<span>+</span></div>
+                        <div class="hero-stat-label">Certified Coaches</div>
+                    </div>
                 </div>
-            </div>
-            <div class="col-lg-4 col-md-6 mb-4">
-                <div class="feature-card">
-                    <i class="fa fa-yin-yang feature-icon"></i>
-                    <h4>Mind & Body</h4>
-                    <p>Relieve stress and improve flexibility with our dedicated yoga and meditation sessions.</p>
+                <div class="col-6 col-md-3">
+                    <div class="hero-stat-card">
+                        <div class="hero-stat-num">45<span>+</span></div>
+                        <div class="hero-stat-label">Weekly Classes</div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <div class="hero-stat-card">
+                        <div class="hero-stat-num">99.4<span>%</span></div>
+                        <div class="hero-stat-label">Satisfaction Rate</div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- Pricing Section -->
-<section id="pricing" class="section-padding" style="background-color:#1e293b;">
+<!-- Training Pillars Section -->
+<section id="programs" class="section-padding" style="background: var(--bg-surface);">
     <div class="container">
-        <h2 class="section-title">Select Your <span>Plan</span></h2>
+        <div class="section-header">
+            <span class="section-tag">ELITE TRAINING PROGRAMS</span>
+            <h2 class="section-title">Built For <span>Real Results</span></h2>
+            <p class="section-desc">Our training splits are rooted in exercise science, progressive overload, and functional longevity.</p>
+        </div>
         <div class="row">
-            {% for i in package %}
             <div class="col-lg-4 col-md-6 mb-4">
-                <div class="pricing-card {% if forloop.counter == 2 %}popular-plan{% endif %}" style="height: 100%; display: flex; flex-direction: column;">
-                    {% if forloop.counter == 2 %}
-                    <div class="popular-badge">Most Popular</div>
-                    {% endif %}
-                    <div class="pricing-header">
-                        <h3>{{i.titlename}}</h3>
-                        <div class="pricing-price"><span class="currency">₹</span>{{i.price}}</div>
-                        <span class="badge p-2 duration-badge">{{i.packageduration}}</span>
+                <div class="feature-card">
+                    <div class="feature-icon-wrapper">
+                        <i class="fa fa-dumbbell"></i>
                     </div>
-                    <div class="pricing-body text-left" style="flex: 1; display: flex; flex-direction: column;">
-                        <p style="color:#cbd5e1; line-height:1.8; font-size:16px; flex-grow: 1;">{{i.description|safe}}</p>
-                        <a href="/apply-booking/{{i.id}}/" class="btn-primary-custom d-block text-center text-decoration-none mt-4" style="margin-top: auto !important;">Get Started</a>
+                    <h4>Hypertrophy & Strength</h4>
+                    <p>Barbell mechanics, power racks, and targeted hypertrophy splits (PPL / Arnold) designed to build dense contractile tissue.</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="feature-card">
+                    <div class="feature-icon-wrapper">
+                        <i class="fa fa-heart-pulse"></i>
+                    </div>
+                    <h4>Metabolic Conditioning & HIIT</h4>
+                    <p>Assault bikes, ski ergs, and high-intensity interval circuits that accelerate metabolic burn and elevate VO2 max.</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="feature-card">
+                    <div class="feature-icon-wrapper">
+                        <i class="fa fa-person-running"></i>
+                    </div>
+                    <h4>Hyrox & Functional Turf</h4>
+                    <p>Sled pushes, farmer carries, and kettlebell complexes on our 40-meter indoor turf sprint track.</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="feature-card">
+                    <div class="feature-icon-wrapper">
+                        <i class="fa fa-yin-yang"></i>
+                    </div>
+                    <h4>Mobility & Ashtanga Yoga</h4>
+                    <p>Restore joint kinematics, decompress the spine, and improve flexibility under certified RYT-500 instructors.</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="feature-card">
+                    <div class="feature-icon-wrapper">
+                        <i class="fa fa-spa"></i>
+                    </div>
+                    <h4>Recovery Spa & Cryo</h4>
+                    <p>Infrared saunas, cold plunge baths, and guided percussion therapy to cut down delayed-onset muscle soreness (DOMS).</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="feature-card">
+                    <div class="feature-icon-wrapper">
+                        <i class="fa fa-apple-whole"></i>
+                    </div>
+                    <h4>Nutrition & Body Recomp</h4>
+                    <p>InBody 570 clinical composition scans coupled with personalized macro breakdowns for sustainable fat loss.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Interactive BMI & Calorie Calculator Section -->
+<section id="calculator" class="section-padding">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-tag">INSTANT FITNESS DIAGNOSTIC</span>
+            <h2 class="section-title">Calculate Your <span>BMI & Caloric Target</span></h2>
+            <p class="section-desc">Know your baseline metric in 5 seconds to choose the ideal training blueprint.</p>
+        </div>
+        <div class="calc-wrapper">
+            <div class="row align-items-center">
+                <div class="col-lg-7">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="text-white font-weight-bold" style="font-size:13px;">Height (cm)</label>
+                            <input type="number" id="calcHeight" class="custom-input mb-2" value="175" placeholder="e.g. 175">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="text-white font-weight-bold" style="font-size:13px;">Weight (kg)</label>
+                            <input type="number" id="calcWeight" class="custom-input mb-2" value="72" placeholder="e.g. 72">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="text-white font-weight-bold" style="font-size:13px;">Age (Years)</label>
+                            <input type="number" id="calcAge" class="custom-input mb-2" value="24" placeholder="e.g. 24">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="text-white font-weight-bold" style="font-size:13px;">Gender</label>
+                            <select id="calcGender" class="custom-input mb-2">
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                            </select>
+                        </div>
+                        <div class="col-12 mb-3">
+                            <label class="text-white font-weight-bold" style="font-size:13px;">Activity Frequency</label>
+                            <select id="calcActivity" class="custom-input mb-2">
+                                <option value="1.2">Sedentary (Office desk job, minimal training)</option>
+                                <option value="1.375">Lightly Active (1-3 gym workouts / week)</option>
+                                <option value="1.55" selected>Moderately Active (3-5 intense gym sessions / week)</option>
+                                <option value="1.725">Very Active (6-7 intense workouts / week)</option>
+                            </select>
+                        </div>
+                        <div class="col-12 mt-2">
+                            <button type="button" class="btn-primary-custom w-100" onclick="runCalculator()">
+                                <i class="fa fa-calculator"></i> Compute Metrics
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-5 mt-4 mt-lg-0">
+                    <div class="calc-result-box">
+                        <span style="font-size: 13px; font-weight: 700; color: var(--text-dim); text-transform: uppercase;">Body Mass Index</span>
+                        <div class="calc-score" id="resBMI">23.5</div>
+                        <div style="font-size: 18px; font-weight: 700; color: #10b981;" id="resStatus">Normal Weight</div>
+
+                        <div class="calc-gauge-bar">
+                            <div class="gauge-seg gauge-under"></div>
+                            <div class="gauge-seg gauge-normal"></div>
+                            <div class="gauge-seg gauge-over"></div>
+                            <div class="gauge-seg gauge-obese"></div>
+                        </div>
+
+                        <div class="row mt-2" style="font-size: 13.5px; color: var(--text-muted);">
+                            <div class="col-6 text-left">
+                                <div>Est. Maintenance:</div>
+                                <strong class="text-white" id="resCalories">2,450 kcal</strong>
+                            </div>
+                            <div class="col-6 text-right">
+                                <div>Ideal Weight Range:</div>
+                                <strong class="text-white" id="resIdeal">57 - 77 kg</strong>
+                            </div>
+                        </div>
+
+                        <div class="mt-3 p-3 rounded" style="background: rgba(244,63,94,0.08); border: 1px dashed rgba(244,63,94,0.3); font-size:13px;" id="resAdvice">
+                            Recommended Focus: <strong>Hypertrophy Beast Split</strong> with progressive progressive resistance training.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Pricing Plans -->
+<section id="pricing" class="section-padding" style="background: var(--bg-surface);">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-tag">TRANSPARENT VALUE</span>
+            <h2 class="section-title">Select Your <span>Membership Tier</span></h2>
+            <p class="section-desc">Zero hidden enrollment charges. Instant digital activation with receipt.</p>
+        </div>
+        <div class="row">
+            {% for p in packages %}
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="pricing-card {% if forloop.counter == 2 %}featured{% endif %}">
+                    {% if forloop.counter == 2 %}
+                        <div class="pricing-badge">Most Popular</div>
+                    {% endif %}
+                    <div class="pricing-plan-name">{{ p.titlename }}</div>
+                    <span class="pricing-category-pill">{{ p.category.categoryname|default:"All-Access" }}</span>
+
+                    <div class="pricing-price-wrap">
+                        <span class="pricing-currency">₹</span>
+                        <span class="pricing-amount">{{ p.formatted_price }}</span>
+                    </div>
+                    <div class="pricing-duration">Tier Term: <strong>{{ p.packageduration }}</strong></div>
+
+                    <div class="pricing-divider"></div>
+
+                    <ul class="pricing-features-list">
+                        <li><i class="fa fa-check-circle"></i> Complete access to free weights & machines</li>
+                        <li><i class="fa fa-check-circle"></i> Standard gym locker & shower amenities</li>
+                        <li><i class="fa fa-check-circle"></i> Initial fitness assessment & body composition scan</li>
+                        {% if "3" in p.packageduration or "6" in p.packageduration or "12" in p.packageduration or "Year" in p.packageduration %}
+                        <li><i class="fa fa-check-circle"></i> Complimentary infrared sauna access</li>
+                        <li><i class="fa fa-check-circle"></i> Free electrolyte bar refuels</li>
+                        {% endif %}
+                        {% if "12" in p.packageduration or "Year" in p.packageduration %}
+                        <li><i class="fa fa-check-circle"></i> 12 Free 1-on-1 Personal Coaching sessions</li>
+                        <li><i class="fa fa-check-circle"></i> VIP Guest passes every month</li>
+                        {% endif %}
+                    </ul>
+
+                    <div style="margin-top: auto;">
+                        <a href="{% url 'apply_booking' p.id %}" class="btn-primary-custom w-100">
+                            Get Started Now <i class="fa fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12 text-center text-muted">
+                <p>No packages found. Please initialize data using <code>python manage.py seed_gym_data</code>.</p>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="text-center mt-4">
+            <a href="{% url 'pricing_view' %}" class="btn-secondary-custom">
+                Compare All Features & Tiers <i class="fa fa-list"></i>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Coaches Preview -->
+<section id="coaches" class="section-padding">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-tag">EXPERT COACHING STAFF</span>
+            <h2 class="section-title">Train With <span>Certified Masters</span></h2>
+            <p class="section-desc">Our coaches hold internationally recognized credentials (CSCS, ACE, USAW) and bring years of athlete development experience.</p>
+        </div>
+        <div class="row">
+            {% for t in trainers %}
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="trainer-card">
+                    <div class="trainer-img-wrap">
+                        {% if forloop.counter == 1 %}
+                            <img src="{% static 'assets/images/first-trainer.jpg' %}" alt="{{ t.name }}">
+                        {% elif forloop.counter == 2 %}
+                            <img src="{% static 'assets/images/second-trainer.jpg' %}" alt="{{ t.name }}">
+                        {% elif forloop.counter == 3 %}
+                            <img src="{% static 'assets/images/third-trainer.jpg' %}" alt="{{ t.name }}">
+                        {% else %}
+                            <img src="{% static 'assets/images/training-image-01.jpg' %}" alt="{{ t.name }}">
+                        {% endif %}
+                        <div class="trainer-overlay-badge">{{ t.experience }}</div>
+                    </div>
+                    <div class="trainer-content">
+                        <div class="trainer-name">{{ t.name }}</div>
+                        <div class="trainer-role">{{ t.role }}</div>
+                        <p class="trainer-bio">{{ t.speciality }}</p>
+                        <div class="trainer-certs">
+                            <i class="fa fa-certificate mr-1 text-warning"></i> {{ t.certifications }}
+                        </div>
                     </div>
                 </div>
             </div>
             {% endfor %}
         </div>
+        <div class="text-center mt-3">
+            <a href="{% url 'trainers_view' %}" class="btn-secondary-custom">
+                View All Certified Coaches <i class="fa fa-users"></i>
+            </a>
+        </div>
     </div>
 </section>
 
-<!-- Admin Login -->
-<section id="admin" class="section-padding">
+<!-- Authentic Member Reviews / Testimonials -->
+<section class="section-padding" style="background: var(--bg-surface);">
     <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-6 mb-4">
-                <h2 class="section-title text-left">Admin <span>Portal</span></h2>
-                <p style="color:#94a3b8; font-size:18px;">Exclusive access for gym administrators to manage bookings, track memberships, and update system configurations securely.</p>
+        <div class="section-header">
+            <span class="section-tag">REAL MEMBER TRANSFORMATIONS</span>
+            <h2 class="section-title">Tested By <span>Real Lifters</span></h2>
+            <p class="section-desc">Real stories from engineers, business owners, and runners who made FITCORE their second home.</p>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="feature-card" style="padding: 30px;">
+                    <div class="d-flex align-items-center mb-3">
+                        <div style="width: 50px; height: 50px; border-radius: 50%; background: #2563eb; display: flex; align-items: center; justify-content: center; font-weight: 800; color: #fff; font-size: 18px; margin-right: 14px;">
+                            KP
+                        </div>
+                        <div>
+                            <div class="font-weight-bold text-white" style="font-size: 16px;">Karan Patel</div>
+                            <div style="font-size: 13px; color: var(--text-dim);">Software Architect, Bodakdev</div>
+                        </div>
+                    </div>
+                    <div class="text-warning mb-2" style="font-size: 13px;">
+                        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
+                    </div>
+                    <p style="font-size: 14.5px; color: var(--text-muted);">
+                        "I used to have chronic lumbar pain from sitting 9 hours coding. Coach Marcus adjusted my deadlift mechanics and mobility. In 6 months, down 12kg and zero back pain."
+                    </p>
+                </div>
             </div>
-            <div class="col-lg-6">
-                <!-- Exact required names and method for views.py -->
-                <form class="custom-form" method="post" action="" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    <h4 class="mb-4 text-white">Login Here</h4>
-                    <input type="text" name="uname" class="custom-input" placeholder="Admin Username" required>
-                    <input type="password" name="pwd" class="custom-input" placeholder="Admin Password" required>
-                    <button type="submit" class="btn-primary-custom w-100 mt-2">Access Dashboard</button>
-                </form>
+
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="feature-card" style="padding: 30px;">
+                    <div class="d-flex align-items-center mb-3">
+                        <div style="width: 50px; height: 50px; border-radius: 50%; background: #e11d48; display: flex; align-items: center; justify-content: center; font-weight: 800; color: #fff; font-size: 18px; margin-right: 14px;">
+                            RD
+                        </div>
+                        <div>
+                            <div class="font-weight-bold text-white" style="font-size: 16px;">Riya Desai</div>
+                            <div style="font-size: 13px; color: var(--text-dim);">Marathon Runner & HR Lead</div>
+                        </div>
+                    </div>
+                    <div class="text-warning mb-2" style="font-size: 13px;">
+                        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
+                    </div>
+                    <p style="font-size: 14.5px; color: var(--text-muted);">
+                        "The recovery lounge with cold plunge and infrared sauna after a 20km long run is a game changer. The Hyrox conditioning classes made my pace faster than ever."
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="feature-card" style="padding: 30px;">
+                    <div class="d-flex align-items-center mb-3">
+                        <div style="width: 50px; height: 50px; border-radius: 50%; background: #059669; display: flex; align-items: center; justify-content: center; font-weight: 800; color: #fff; font-size: 18px; margin-right: 14px;">
+                            SS
+                        </div>
+                        <div>
+                            <div class="font-weight-bold text-white" style="font-size: 16px;">Siddharth Shah</div>
+                            <div style="font-size: 13px; color: var(--text-dim);">Entrepreneur, Ahmedabad</div>
+                        </div>
+                    </div>
+                    <div class="text-warning mb-2" style="font-size: 13px;">
+                        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
+                    </div>
+                    <p style="font-size: 14.5px; color: var(--text-muted);">
+                        "Proper Olympic Eleiko barbells and bumper plates that you rarely find in commercial gyms. Plus, the automated booking and digital membership pass on my phone makes check-in effortless."
+                    </p>
+                </div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- Contact Form -->
-<section id="contact" class="section-padding" style="background-color:#1e293b;">
+<!-- Direct Contact & Inquiry Form -->
+<section id="contact" class="section-padding">
     <div class="container">
-        <h2 class="section-title">Get In <span>Touch</span></h2>
+        <div class="section-header">
+            <span class="section-tag">GET IN TOUCH</span>
+            <h2 class="section-title">Have Questions? <span>Message Our Team</span></h2>
+            <p class="section-desc">Drop us a line for membership queries, corporate wellness partnerships, or trainer bookings.</p>
+        </div>
         <div class="row justify-content-center">
             <div class="col-lg-8">
-                <!-- Exact required names, id, and method for views.py -->
-                <form id="contact" class="custom-form" action="" method="post">
+                <form class="custom-form" method="post" action="{% url 'index' %}">
                     {% csrf_token %}
                     <div class="row">
                         <div class="col-md-6">
-                            <input name="name" type="text" class="custom-input" placeholder="Your Name" required>
+                            <div class="form-group">
+                                <label>Your Full Name *</label>
+                                <input name="name" type="text" class="custom-input" placeholder="e.g. Anand Patel" required>
+                            </div>
                         </div>
                         <div class="col-md-6">
-                            <input name="email" type="email" class="custom-input" placeholder="Your Email" required>
+                            <div class="form-group">
+                                <label>Email Address *</label>
+                                <input name="email" type="email" class="custom-input" placeholder="e.g. anand@gmail.com" required>
+                            </div>
                         </div>
                         <div class="col-12">
-                            <input name="subject" type="text" class="custom-input" placeholder="Subject">
+                            <div class="form-group">
+                                <label>Subject / Topic</label>
+                                <input name="subject" type="text" class="custom-input" placeholder="e.g. Inquiry regarding VIP All-Access">
+                            </div>
                         </div>
                         <div class="col-12">
-                            <textarea name="message" rows="5" class="custom-input" placeholder="Your Message" required></textarea>
+                            <div class="form-group">
+                                <label>Message / Goals *</label>
+                                <textarea name="message" rows="4" class="custom-input" placeholder="Tell us about your fitness background and goals..." required></textarea>
+                            </div>
                         </div>
-                        <div class="col-12 text-center">
-                            <button type="submit" class="btn-primary-custom px-5 mt-3 border-0">Send Message</button>
+                        <div class="col-12 text-center mt-3">
+                            <button type="submit" class="btn-primary-custom px-5">
+                                Send Message <i class="fa fa-paper-plane"></i>
+                            </button>
                         </div>
                     </div>
                 </form>
@@ -167,26 +434,66 @@
     </div>
 </section>
 
-<!-- Footer -->
-<footer>
-    <div class="container">
-        <p>Copyright &copy; <script>document.write(new Date().getFullYear());</script> Gym Management System by Patel Samay | samaypatel071@gmail.com</p>
-                    <div style="margin-top: 15px; display: flex; justify-content: center; align-items: center; gap: 20px;">
-                        <a href="https://github.com/Samay-P07" target="_blank" title="GitHub" style="color:#cbd5e1; text-decoration:none;"><i class="fab fa-github fa-2x" style="transition:0.3s;" onmouseover="this.style.color='#f43f5e'" onmouseout="this.style.color='#cbd5e1'"></i></a>
-                        <a href="https://linkedin.com/in/samaypatel7" target="_blank" title="LinkedIn" style="color:#cbd5e1; text-decoration:none;"><i class="fab fa-linkedin fa-2x" style="transition:0.3s;" onmouseover="this.style.color='#f43f5e'" onmouseout="this.style.color='#cbd5e1'"></i></a>
-                    </div>
-    </div>
-</footer>
+{% endblock %}
 
-<script src="{% static 'assets/js/jquery-2.1.0.min.js' %}"></script>
-<script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
-
-<!-- Keep existing messages logic -->
-{% for i in messages %}
+{% block extra_js %}
 <script>
-    alert('{{i}}');
-</script>
-{% endfor %}
+function runCalculator() {
+    const h = parseFloat(document.getElementById('calcHeight').value) / 100;
+    const w = parseFloat(document.getElementById('calcWeight').value);
+    const age = parseFloat(document.getElementById('calcAge').value);
+    const gender = document.getElementById('calcGender').value;
+    const act = parseFloat(document.getElementById('calcActivity').value);
 
-</body>
-</html>
+    if (!h || !w || h <= 0 || w <= 0) {
+        alert("Please enter valid height and weight values.");
+        return;
+    }
+
+    // BMI
+    const bmi = (w / (h * h)).toFixed(1);
+    document.getElementById('resBMI').innerText = bmi;
+
+    let status = "";
+    let statusColor = "";
+    let advice = "";
+
+    if (bmi < 18.5) {
+        status = "Underweight";
+        statusColor = "#38bdf8";
+        advice = "Focus on caloric surplus and strength hypertrophy splits with compound lifts.";
+    } else if (bmi <= 24.9) {
+        status = "Normal / Athletic";
+        statusColor = "#10b981";
+        advice = "Ideal metabolic window. Focus on body recomposition, powerlifting, or endurance.";
+    } else if (bmi <= 29.9) {
+        status = "Overweight";
+        statusColor = "#f59e0b";
+        advice = "Recommended focus: High-intensity conditioning + calorie deficit + progressive resistance.";
+    } else {
+        status = "Obese Class";
+        statusColor = "#ef4444";
+        advice = "Recommended focus: Low-impact joint mobility, guided cardio, and clean nutrition.";
+    }
+
+    document.getElementById('resStatus').innerText = status;
+    document.getElementById('resStatus').style.color = statusColor;
+    document.getElementById('resAdvice').innerHTML = `Focus: <strong>${advice}</strong>`;
+
+    // Ideal Weight Range (BMI 18.5 - 24.9)
+    const minW = Math.round(18.5 * h * h);
+    const maxW = Math.round(24.9 * h * h);
+    document.getElementById('resIdeal').innerText = `${minW} - ${maxW} kg`;
+
+    // BMR (Mifflin-St Jeor)
+    let bmr = 0;
+    if (gender === 'male') {
+        bmr = 10 * w + 6.25 * (h * 100) - 5 * age + 5;
+    } else {
+        bmr = 10 * w + 6.25 * (h * 100) - 5 * age - 161;
+    }
+    const tdee = Math.round(bmr * act);
+    document.getElementById('resCalories').innerText = `${tdee.toLocaleString()} kcal`;
+}
+</script>
+{% endblock %}

@@ -1,0 +1,147 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Tax Invoice & Membership Receipt | FITCORE{% endblock %}
+
+{% block content %}
+<div class="inner-page-wrapper">
+    <div class="container">
+        <!-- Top Toolbar -->
+        <div class="d-flex justify-content-between align-items-center mb-4 no-print">
+            <a href="{% url 'member_dashboard' %}" class="btn-secondary-custom">
+                <i class="fa fa-arrow-left"></i> Back to Dashboard
+            </a>
+            <div class="d-flex gap-2">
+                <button type="button" class="btn-primary-custom" onclick="window.print()">
+                    <i class="fa fa-print"></i> Print / Download PDF
+                </button>
+            </div>
+        </div>
+
+        <!-- Printable Invoice Sheet -->
+        <div class="invoice-card p-5 rounded" style="background: var(--bg-card); border: 1px solid var(--border); max-width: 850px; margin: 0 auto; box-shadow: 0 20px 50px rgba(0,0,0,0.5);">
+            <!-- Invoice Header -->
+            <div class="d-flex justify-content-between align-items-start pb-4 mb-4" style="border-bottom: 2px solid rgba(244,63,94,0.4);">
+                <div>
+                    <div style="font-family: var(--font-heading); font-size: 32px; font-weight: 800; color: var(--primary); letter-spacing: 1.5px;">
+                        FIT<span style="color: #ffffff;">CORE</span>
+                    </div>
+                    <div style="font-size: 13px; color: var(--text-muted); margin-top: 4px;">
+                        FITCORE Iron & Wellness Arena Ltd.<br>
+                        Bodakdev, S.G. Highway, Ahmedabad - 380054<br>
+                        GSTIN: 24AAACF1982K1Z5 | Support: contact@fitcoregym.in
+                    </div>
+                </div>
+
+                <div class="text-right">
+                    <span class="badge badge-danger p-2 mb-2" style="background: var(--primary); font-size: 13px; text-transform:uppercase; letter-spacing: 1px;">
+                        TAX INVOICE & RECEIPT
+                    </span>
+                    <div style="font-size: 14px; color: var(--text-muted);">
+                        Invoice No: <strong class="text-white">{{ booking.invoice_number }}</strong><br>
+                        Date: <strong class="text-white">{{ today|date:"d M, Y" }}</strong><br>
+                        Booking Ref: <strong class="text-warning">#{{ booking.bookingnumber }}</strong>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Billed To Section -->
+            <div class="row mb-4">
+                <div class="col-6">
+                    <div style="font-size: 11px; font-weight: 700; color: var(--text-dim); text-transform: uppercase;">MEMBER DETAILS (BILLED TO)</div>
+                    <div class="text-white font-weight-bold" style="font-size: 18px;">{{ booking.register.full_name }}</div>
+                    <div style="font-size: 13.5px; color: var(--text-muted);">
+                        Email: {{ booking.register.user.email }}<br>
+                        Contact: {{ booking.register.mobile|default:"Not Available" }}<br>
+                        City / State: {{ booking.register.city|default:"Ahmedabad" }}, {{ booking.register.state|default:"Gujarat" }}
+                    </div>
+                </div>
+
+                <div class="col-6 text-right">
+                    <div style="font-size: 11px; font-weight: 700; color: var(--text-dim); text-transform: uppercase;">PAYMENT STATUS</div>
+                    <div class="mt-2">
+                        {% if booking.status == 3 %}
+                            <span class="badge badge-success p-2 px-3" style="font-size: 13px; background: rgba(16,185,129,0.2); color:#10b981; border: 1px solid rgba(16,185,129,0.4);">
+                                <i class="fa fa-circle-check"></i> FULL PAYMENT CONFIRMED
+                            </span>
+                        {% else %}
+                            <span class="badge badge-warning p-2 px-3" style="font-size: 13px;">
+                                PENDING PAYMENT
+                            </span>
+                        {% endif %}
+                    </div>
+                    <div style="font-size: 12px; color: var(--text-dim); margin-top: 6px;">
+                        Payment Gateway: Razorpay Mock &bull; Status: Settled
+                    </div>
+                </div>
+            </div>
+
+            <!-- Line Items Table -->
+            <div class="table-responsive mb-4">
+                <table class="table custom-table">
+                    <thead>
+                        <tr>
+                            <th>Description</th>
+                            <th>Category</th>
+                            <th>Term / Duration</th>
+                            <th class="text-right">Amount (INR)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <strong class="text-white">{{ booking.package.titlename }}</strong>
+                                <div style="font-size: 12px; color: var(--text-muted);">
+                                    Full access to Olympic free weights, lockers, saunas, and member mobile pass.
+                                </div>
+                            </td>
+                            <td>{{ booking.package.category.categoryname|default:"General Access" }}</td>
+                            <td>{{ booking.package.packageduration }}</td>
+                            <td class="text-right font-weight-bold text-white">₹{{ base_price }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Totals & Tax Breakdown -->
+            <div class="row">
+                <div class="col-6">
+                    <div class="p-3 rounded" style="background: rgba(255,255,255,0.03); border: 1px dashed var(--border); font-size: 12.5px; color: var(--text-muted);">
+                        <strong>Terms & Conditions:</strong><br>
+                        1. Membership is non-transferable without prior administrative approval.<br>
+                        2. Member agrees to follow club safety rules and locker etiquette.<br>
+                        3. This is a computer-generated tax invoice verified by Patel Samay.
+                    </div>
+                </div>
+
+                <div class="col-6">
+                    <div class="p-3 rounded" style="background: rgba(255,255,255,0.03);">
+                        <div class="d-flex justify-content-between mb-2" style="font-size: 13.5px; color: var(--text-muted);">
+                            <span>Taxable Base Value:</span>
+                            <span class="text-white font-weight-bold">₹{{ base_price }}</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2" style="font-size: 13.5px; color: var(--text-muted);">
+                            <span>CGST (9%) + SGST (9%):</span>
+                            <span class="text-white font-weight-bold">₹{{ gst_amount }}</span>
+                        </div>
+                        <div class="d-flex justify-content-between pt-2" style="border-top: 1px solid var(--border); font-size: 18px;">
+                            <span class="font-weight-bold text-white">Total Amount Paid:</span>
+                            <span class="font-weight-bold text-success">₹{{ total_price|floatformat:2 }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Digital Stamp -->
+            <div class="d-flex justify-content-between align-items-center mt-5 pt-4" style="border-top: 1px solid var(--border);">
+                <div style="font-size: 12px; color: var(--text-dim);">
+                    Generated via FITCORE Gym Management System &bull; Patel Samay
+                </div>
+                <div class="text-center p-2 rounded" style="border: 2px dashed #10b981; color: #10b981; font-weight: 800; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; transform: rotate(-3deg);">
+                    <i class="fa fa-stamp"></i> VERIFIED & PAID
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

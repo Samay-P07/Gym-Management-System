@@ -7,12 +7,8 @@
         <div class="row align-items-center">
             <div class="col-md-8">
                 <div class="page-header-title">
-                    <h5 class="m-b-10">User Queries</h5>
-                    <p class="m-b-0">Welcome to Gym Management System by Patel Samay | samaypatel071@gmail.com</p>
-                    <div style="margin-top: 15px; display: flex; justify-content: center; align-items: center; gap: 20px;">
-                        <a href="https://github.com/Samay-P07" target="_blank" title="GitHub" style="color:#cbd5e1; text-decoration:none;"><i class="fab fa-github fa-2x" style="transition:0.3s;" onmouseover="this.style.color='#f43f5e'" onmouseout="this.style.color='#cbd5e1'"></i></a>
-                        <a href="https://linkedin.com/in/samaypatel7" target="_blank" title="LinkedIn" style="color:#cbd5e1; text-decoration:none;"><i class="fab fa-linkedin fa-2x" style="transition:0.3s;" onmouseover="this.style.color='#f43f5e'" onmouseout="this.style.color='#cbd5e1'"></i></a>
-                    </div>
+                    <h5 class="m-b-10">User Queries & Inquiries</h5>
+                    <p class="m-b-0">Customer communication log from public contact forms</p>
                 </div>
             </div>
             <div class="col-md-4">
@@ -20,8 +16,7 @@
                     <li class="breadcrumb-item">
                         <a href="{% url 'admin_home' %}"> <i class="fa fa-home"></i> </a>
                     </li>
-                    <li class="breadcrumb-item"><a href="">User Queries</a>
-                    </li>
+                    <li class="breadcrumb-item"><a href="">User Queries</a></li>
                 </ul>
             </div>
         </div>
@@ -30,66 +25,61 @@
 <!-- Page-header end -->
 
 <div class="pcoded-inner-content">
-    <!-- Main-body start -->
     <div class="main-body">
         <div class="page-wrapper">
-
-            <!-- Page body start -->
             <div class="page-body">
                 <div class="row">
-
                     <div class="col-md-12">
                         <div class="card">
-                            <div class="card-block">
-                                <div class="card-header">
-                                    <h5> User Queries</h5>
-                                    <div class="card-header-right">
-                                        <ul class="list-unstyled card-option">
-                                            <li><i class="fa fa fa-wrench open-card-option"></i></li>
-                                            <li><i class="fa fa-window-maximize full-card"></i></li>
-                                            <li><i class="fa fa-minus minimize-card"></i></li>
-                                            <li><i class="fa fa-refresh reload-card"></i></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="card-block table-border-style">
-                                    <div class="table-responsive">
-                                        <table class="table">
-                                            <thead>
+                            <div class="card-header">
+                                <h5>All Customer Inquiries</h5>
+                            </div>
+                            <div class="card-block table-border-style">
+                                <div class="table-responsive">
+                                    <table class="table table-hover">
+                                        <thead>
                                             <tr>
                                                 <th>#</th>
                                                 <th>Name</th>
                                                 <th>Email</th>
                                                 <th>Subject</th>
                                                 <th>Message</th>
-                                                <th>Date</th>
+                                                <th>Date Received</th>
+                                                <th>Actions</th>
                                             </tr>
-                                            </thead>
-
-                                            <tbody>
+                                        </thead>
+                                        <tbody>
                                             {% for i in data %}
                                             <tr>
-                                                <th scope="row">{{forloop.counter}}</th>
-                                                <td>{{i.name}}</td>
-                                                 <td>{{i.email}}</td>
-                                                 <td>{{i.subject}}</td>
-                                                <td>{{i.message}}</td>
-                                                <td>{{i.creationdate}}</td>
+                                                <th scope="row">{{ forloop.counter }}</th>
+                                                <td><strong>{{ i.name }}</strong></td>
+                                                <td><a href="mailto:{{ i.email }}">{{ i.email }}</a></td>
+                                                <td><span class="badge badge-info">{{ i.subject|default:"Inquiry" }}</span></td>
+                                                <td style="max-width: 320px;">{{ i.message }}</td>
+                                                <td>{{ i.creationdate|date:"d M Y, h:i A" }}</td>
+                                                <td>
+                                                    <a href="mailto:{{ i.email }}" class="btn btn-sm btn-outline-primary" title="Reply via Email">
+                                                        <i class="fa fa-reply"></i>
+                                                    </a>
+                                                    <a href="{% url 'delete_message' i.id %}" class="btn btn-sm btn-outline-danger" onclick="return confirm('Delete this inquiry message?');" title="Delete">
+                                                        <i class="fa fa-trash"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            {% empty %}
+                                            <tr>
+                                                <td colspan="7" class="text-center text-muted p-4">No contact inquiries found.</td>
                                             </tr>
                                             {% endfor %}
-                                            </tbody>
-                                        </table>
-                                    </div>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
     </div>
-    <!-- Main-body end -->
-    <div id="styleSelector"></div>
 </div>
 {% endblock %}

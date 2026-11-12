@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Contact & Club Location | FITCORE Hub{% endblock %}
+
+{% block content %}
+<!-- Page Banner -->
+<div class="page-hero-banner">
+    <div class="container">
+        <span class="section-tag">COMMUNICATION & VISITS</span>
+        <h1 class="text-white font-weight-bold" style="font-size: 46px;">CONNECT WITH OUR TEAM</h1>
+        <p class="text-muted" style="max-width: 650px; margin: 0 auto; font-size: 17px;">
+            Visit our facility, speak with our head coach, or drop us a message online. We respond to all inquiries within 24 hours.
+        </p>
+    </div>
+</div>
+
+<section class="section-padding">
+    <div class="container">
+        <div class="row">
+            <!-- Contact Info Sidebar -->
+            <div class="col-lg-5 mb-5 mb-lg-0">
+                <span class="section-tag">FACILITY LOCATION</span>
+                <h2 class="section-title text-left mb-4">FITCORE <span>Flagship Arena</span></h2>
+
+                <div class="d-flex align-items-start mb-4">
+                    <div style="width: 44px; height: 44px; border-radius: 10px; background: rgba(244,63,94,0.15); display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 18px; margin-right: 16px; flex-shrink: 0;">
+                        <i class="fa fa-location-dot"></i>
+                    </div>
+                    <div>
+                        <h5 class="text-white font-weight-bold mb-1" style="font-size:16px;">Physical Address</h5>
+                        <p class="text-muted mb-0" style="font-size:14.5px;">FITCORE Performance Arena, S.G. Highway, Bodakdev, Ahmedabad, Gujarat 380054</p>
+                    </div>
+                </div>
+
+                <div class="d-flex align-items-start mb-4">
+                    <div style="width: 44px; height: 44px; border-radius: 10px; background: rgba(251,146,60,0.15); display: flex; align-items: center; justify-content: center; color: var(--accent); font-size: 18px; margin-right: 16px; flex-shrink: 0;">
+                        <i class="fa fa-phone"></i>
+                    </div>
+                    <div>
+                        <h5 class="text-white font-weight-bold mb-1" style="font-size:16px;">Desk Telephones</h5>
+                        <p class="text-muted mb-0" style="font-size:14.5px;">+91 98765 43210 &bull; (079) 4001 2233</p>
+                    </div>
+                </div>
+
+                <div class="d-flex align-items-start mb-4">
+                    <div style="width: 44px; height: 44px; border-radius: 10px; background: rgba(16,185,129,0.15); display: flex; align-items: center; justify-content: center; color: var(--success); font-size: 18px; margin-right: 16px; flex-shrink: 0;">
+                        <i class="fa fa-envelope"></i>
+                    </div>
+                    <div>
+                        <h5 class="text-white font-weight-bold mb-1" style="font-size:16px;">Email Channels</h5>
+                        <p class="text-muted mb-0" style="font-size:14.5px;">contact@fitcoregym.in &bull; samaypatel071@gmail.com</p>
+                    </div>
+                </div>
+
+                <div class="d-flex align-items-start mb-4">
+                    <div style="width: 44px; height: 44px; border-radius: 10px; background: rgba(56,189,248,0.15); display: flex; align-items: center; justify-content: center; color: #38bdf8; font-size: 18px; margin-right: 16px; flex-shrink: 0;">
+                        <i class="fa fa-clock"></i>
+                    </div>
+                    <div>
+                        <h5 class="text-white font-weight-bold mb-1" style="font-size:16px;">Operating Schedule</h5>
+                        <p class="text-muted mb-0" style="font-size:14.5px;">
+                            <strong>Monday – Saturday:</strong> 5:00 AM – 11:00 PM<br>
+                            <strong>Sunday:</strong> 7:00 AM – 8:00 PM
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Message Form -->
+            <div class="col-lg-7">
+                <form class="custom-form" method="post" action="{% url 'contact' %}">
+                    {% csrf_token %}
+                    <h3 class="text-white font-weight-bold mb-4">Send Us An Direct Inquiry</h3>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Your Name *</label>
+                                <input name="name" type="text" class="custom-input" placeholder="e.g. Rahul Sharma" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Email Address *</label>
+                                <input name="email" type="email" class="custom-input" placeholder="e.g. rahul@example.com" required>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label>Subject / Area of Interest</label>
+                                <input name="subject" type="text" class="custom-input" placeholder="e.g. Corporate membership inquiry">
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label>Detailed Message *</label>
+                                <textarea name="message" rows="5" class="custom-input" placeholder="Write your message here..." required></textarea>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <button type="submit" class="btn-primary-custom w-100 mt-2">
+                                Submit Inquiry <i class="fa fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

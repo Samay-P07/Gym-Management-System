@@ -1,0 +1,190 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="FITCORE Iron & Wellness - Premium Gym Management System engineered by Patel Samay">
+    <meta name="author" content="Patel Samay">
+    <title>{% block title %}FITCORE | Elite Gym & Performance Hub{% endblock %}</title>
+
+    <!-- Brand SVG Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='50' fill='%23f43f5e'/><path d='M30 35 L70 35 M50 35 L50 75 M35 75 L65 75' stroke='white' stroke-width='8' stroke-linecap='round'/></svg>">
+
+    <!-- Fonts & Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Bootstrap 4 -->
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+    
+    <!-- Core Custom Athletic Theme -->
+    <link rel="stylesheet" href="{% static 'assets/css/custom.css' %}">
+
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+
+<!-- Toast Notification Container -->
+<div class="toast-container-custom" id="toastContainer">
+    {% for message in messages %}
+    <div class="toast-custom {% if message.tags %}{{ message.tags }}{% else %}info{% endif %}">
+        <div class="toast-icon">
+            {% if message.tags == 'success' %}
+                <i class="fa fa-circle-check text-success"></i>
+            {% elif message.tags == 'error' %}
+                <i class="fa fa-circle-exclamation text-danger"></i>
+            {% else %}
+                <i class="fa fa-circle-info text-info"></i>
+            {% endif %}
+        </div>
+        <div class="toast-body">{{ message }}</div>
+        <button type="button" class="toast-close" onclick="this.parentElement.remove()">&times;</button>
+    </div>
+    {% endfor %}
+</div>
+
+<!-- Main Top Navigation -->
+<nav class="navbar navbar-expand-lg navbar-custom">
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'index' %}">
+            <i class="fa fa-dumbbell" style="color:var(--primary); font-size:24px;"></i>
+            FIT<span>CORE</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="fa fa-bars" style="color: #ffffff;"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item"><a class="nav-link" href="{% url 'index' %}">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'about_us' %}">About</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'facilities' %}">Facilities</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'trainers_view' %}">Coaches</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'schedule_view' %}">Schedule</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'pricing_view' %}">Plans</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'calculator_view' %}">BMI Tool</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'contact' %}">Contact</a></li>
+            </ul>
+            <ul class="navbar-nav ml-auto align-items-center">
+                {% if request.user.is_authenticated %}
+                    {% if request.user.is_staff %}
+                        <li class="nav-item mr-2">
+                            <a class="btn-primary-custom" style="padding: 8px 18px; font-size:13px;" href="{% url 'admin_home' %}">
+                                <i class="fa fa-shield-halved"></i> Admin Hub
+                            </a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item mr-2">
+                            <a class="nav-pill-btn" href="{% url 'member_dashboard' %}">
+                                <i class="fa fa-id-card" style="color:var(--primary);"></i> Pass Hub
+                            </a>
+                        </li>
+                        <li class="nav-item mr-2">
+                            <a class="nav-link" href="{% url 'booking_history' %}"><i class="fa fa-clock-rotate-left"></i> Bookings</a>
+                        </li>
+                        <li class="nav-item mr-2">
+                            <a class="nav-link" href="{% url 'user_profile' %}"><i class="fa fa-user"></i> Profile</a>
+                        </li>
+                    {% endif %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'logout' %}" title="Logout"><i class="fa fa-right-from-bracket"></i></a>
+                    </li>
+                {% else %}
+                    <li class="nav-item mr-2">
+                        <a class="nav-link" href="{% url 'user_login' %}"><i class="fa fa-user-lock"></i> Member Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn-primary-custom" style="padding: 9px 22px; font-size:13px;" href="{% url 'registration' %}">Join Now</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Content Block -->
+{% block content %}{% endblock %}
+
+<!-- Main Footer -->
+<footer class="main-footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="footer-brand">FIT<span>CORE</span></div>
+                <p style="font-size: 14.5px; line-height: 1.7; color: var(--text-muted);">
+                    Ahmedabad's premier strength, hypertrophy, and functional wellness hub. Equipped with world-class Olympic platforms, infrared recovery, and certified coaches.
+                </p>
+                <div class="social-links mt-3">
+                    <a href="https://github.com/Samay-P07" target="_blank" class="social-link-btn" title="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="https://linkedin.com/in/samaypatel7" target="_blank" class="social-link-btn" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="mailto:samaypatel071@gmail.com" class="social-link-btn" title="Email"><i class="fa fa-envelope"></i></a>
+                </div>
+            </div>
+
+            <div class="col-lg-2 col-md-6 col-6 mb-4">
+                <h5 class="text-white mb-3 font-weight-bold" style="font-size: 16px;">Explore</h5>
+                <ul class="footer-links">
+                    <li><a href="{% url 'index' %}">Home</a></li>
+                    <li><a href="{% url 'about_us' %}">About Us</a></li>
+                    <li><a href="{% url 'facilities' %}">Facility Tour</a></li>
+                    <li><a href="{% url 'trainers_view' %}">Our Coaches</a></li>
+                    <li><a href="{% url 'schedule_view' %}">Class Timetable</a></li>
+                </ul>
+            </div>
+
+            <div class="col-lg-2 col-md-6 col-6 mb-4">
+                <h5 class="text-white mb-3 font-weight-bold" style="font-size: 16px;">Members</h5>
+                <ul class="footer-links">
+                    <li><a href="{% url 'pricing_view' %}">Membership Plans</a></li>
+                    <li><a href="{% url 'calculator_view' %}">BMI Calculator</a></li>
+                    <li><a href="{% url 'user_login' %}">Member Login</a></li>
+                    <li><a href="{% url 'registration' %}">Create Account</a></li>
+                    <li><a href="{% url 'admin_login' %}">Staff Portal</a></li>
+                </ul>
+            </div>
+
+            <div class="col-lg-4 col-md-6 mb-4">
+                <h5 class="text-white mb-3 font-weight-bold" style="font-size: 16px;">Club Hours & Location</h5>
+                <p style="font-size: 14px; margin-bottom: 8px;">
+                    <i class="fa fa-location-dot mr-2" style="color:var(--primary);"></i> FITCORE Arena, Bodakdev, S.G. Highway, Ahmedabad - 380054
+                </p>
+                <p style="font-size: 14px; margin-bottom: 8px;">
+                    <i class="fa fa-phone mr-2" style="color:var(--accent);"></i> +91 98765 43210 / (079) 4001 2233
+                </p>
+                <p style="font-size: 14px; margin-bottom: 8px;">
+                    <i class="fa fa-clock mr-2" style="color:var(--success);"></i> <strong>Mon - Sat:</strong> 5:00 AM – 11:00 PM<br>
+                    <span style="padding-left: 20px;"><strong>Sunday:</strong> 7:00 AM – 8:00 PM</span>
+                </p>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div>
+                &copy; <script>document.write(new Date().getFullYear());</script> FITCORE Gym Management System. Developed by <strong>Patel Samay</strong>.
+            </div>
+            <div>
+                <a href="{% url 'admin_login' %}" style="color: var(--text-dim); text-decoration: none; font-size:12px;">Admin Login</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Scripts -->
+<script src="{% static 'assets/js/jquery-2.1.0.min.js' %}"></script>
+<script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+
+<!-- Auto-dismiss Toasts after 6 seconds -->
+<script>
+    setTimeout(function() {
+        const toasts = document.querySelectorAll('.toast-custom');
+        toasts.forEach(t => {
+            t.style.opacity = '0';
+            t.style.transition = 'opacity 0.5s ease';
+            setTimeout(() => t.remove(), 500);
+        });
+    }, 6000);
+</script>
+
+{% block extra_js %}{% endblock %}
+
+</body>
+</html>
