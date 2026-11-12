@@ -2,14 +2,19 @@
 __pycache__/
 *.py[cod]
 *$py.class
+*.log
 
 # Virtual Environment
 venv/
 env/
 ENV/
 
-# Database
-# db.sqlite3
+# Static and Media
+staticfiles/
+media/
+
+# Environment Variables
+.env
 
 # IDEs
 .idea/
